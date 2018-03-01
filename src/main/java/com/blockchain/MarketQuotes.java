@@ -2,6 +2,7 @@ package com.blockchain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public class MarketQuotes {
@@ -19,11 +20,11 @@ public class MarketQuotes {
         marketQuotes.put(market, currencyPairQuotes);
     }
 
-    //here I am assuming that every market has all currency pairs
-    public Quote get(Market market, CurrencyPair currencyPair) {
-        if(marketQuotes.containsKey(market))
-            return marketQuotes.get(market).get(currencyPair);
-        return new QuoteImpl();
+
+    public Optional<Quote> get(Market market, CurrencyPair currencyPair) {
+        if(marketQuotes.containsKey(market))//here I am assuming that every market has all currency pairs
+            return Optional.of(marketQuotes.get(market).get(currencyPair));
+        return Optional.empty();
     }
 
     public Set<Market> availableMarkets(){

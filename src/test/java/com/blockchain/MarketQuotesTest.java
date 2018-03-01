@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -15,7 +16,7 @@ public class MarketQuotesTest {
     @Test
     public void returnEmptyQuoteWhenMarketQuotesAreEmpty(){
         MarketQuotes marketQuotes = new MarketQuotes();
-        assertEquals(marketQuotes.get(Market.MARKET1, CurrencyPair.PAIR2), new QuoteImpl());
+        assertEquals(marketQuotes.get(Market.MARKET1, CurrencyPair.PAIR2), Optional.<Quote>empty());
     }
 
     @Test
@@ -23,7 +24,7 @@ public class MarketQuotesTest {
         MarketQuotes marketQuotes = new MarketQuotes();
         Quote testQuote = new QuoteImpl();
         marketQuotes.put(Market.MARKET1, CurrencyPair.PAIR1, testQuote);
-        assertEquals(marketQuotes.get(Market.MARKET1, CurrencyPair.PAIR1), testQuote);
+        assertEquals(marketQuotes.get(Market.MARKET1, CurrencyPair.PAIR1), Optional.of(testQuote));
     }
 
     @Test
@@ -33,7 +34,7 @@ public class MarketQuotesTest {
         marketQuotes.put(Market.MARKET1, CurrencyPair.PAIR1, testQuote);
         Quote updatedQuote = new QuoteImpl(1.5, 2, 1.7, 3);
         marketQuotes.put(Market.MARKET1, CurrencyPair.PAIR1, updatedQuote);
-        assertEquals(marketQuotes.get(Market.MARKET1, CurrencyPair.PAIR1), updatedQuote);
+        assertEquals(marketQuotes.get(Market.MARKET1, CurrencyPair.PAIR1), Optional.of(updatedQuote));
     }
 
     @Test
